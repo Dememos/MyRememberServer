@@ -11,9 +11,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-public class ApplicationInstall implements WebApplicationInitializer{
+public class ApplicationInstall implements WebApplicationInitializer {
 
-    private final static String DISPATCHER = "dispatcher";
+   private final static String DISPATCHER = "dispatcher";
 
 
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
