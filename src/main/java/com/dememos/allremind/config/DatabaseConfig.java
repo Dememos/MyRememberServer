@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -21,6 +22,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories("com.dememos.allremind.repositories")
+@EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 @ComponentScan("com.dememos.allremind.repositories")
 public class DatabaseConfig {
