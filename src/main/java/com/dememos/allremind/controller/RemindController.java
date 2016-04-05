@@ -4,37 +4,47 @@ package com.dememos.allremind.controller;
 import com.dememos.allremind.entity.Remind;
 import com.dememos.allremind.repositories.RemindRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/remind")
 public class RemindController {
 
     @Autowired
     private RemindRepository remindRepository;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/reminds", method = RequestMethod.GET)
     @ResponseBody
-    public Remind getRemind() {
+    public List<Remind> getAllReminds() {
 
-        List<Remind> list = remindRepository.findAll();
-        return createMockRemind();
+        return remindRepository.findAll();
     }
 
-    private Remind createMockRemind() {
-        Remind remind = new Remind();
-        remind.setId(1);
-        remind.setRemindDate(new Date());
-        remind.setTitle("Hello, world");
+    @RequestMapping(value = "/reminds/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Remind getRemind(@PathVariable("id") long remindID) {
 
-        return remind;
+        return remindRepository.findOne(remindID);
     }
+
+    @RequestMapping(value = "/reminds", method = RequestMethod.POST)
+    @ResponseBody
+    public Remind saveRemind(@RequestBody Remind remind) {
+
+        return remindRepository.saveAndFlush(remind);
+    }
+
+
+    @RequestMapping(value = "/reminds/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteRemind(@PathVariable long id) {
+
+        remindRepository.delete(id);
+    }
+
+
+
 
 
 }
