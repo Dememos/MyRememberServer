@@ -2,7 +2,7 @@ package com.dememos.allremind.controller;
 
 
 import com.dememos.allremind.entity.Remind;
-import com.dememos.allremind.repositories.RemindRepository;
+import com.dememos.allremind.services.ReminderServes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,27 +12,27 @@ import java.util.List;
 public class RemindController {
 
     @Autowired
-    private RemindRepository remindRepository;
+    private ReminderServes reminderServes;
 
     @RequestMapping(value = "/reminds", method = RequestMethod.GET)
     @ResponseBody
     public List<Remind> getAllReminds() {
 
-        return remindRepository.findAll();
+        return reminderServes.getAll();
     }
 
     @RequestMapping(value = "/reminds/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Remind getRemind(@PathVariable("id") long remindID) {
 
-        return remindRepository.findOne(remindID);
+        return reminderServes.getById(remindID);
     }
 
     @RequestMapping(value = "/reminds", method = RequestMethod.POST)
     @ResponseBody
     public Remind saveRemind(@RequestBody Remind remind) {
 
-        return remindRepository.saveAndFlush(remind);
+        return reminderServes.save(remind);
     }
 
 
@@ -40,7 +40,7 @@ public class RemindController {
     @ResponseBody
     public void deleteRemind(@PathVariable long id) {
 
-        remindRepository.delete(id);
+        reminderServes.remove(id);
     }
 
 
